@@ -1,3 +1,61 @@
+<?php
+session_start();
+include 'conexao.php'; 
+
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+}
+
+$user_id = $_SESSION['id'];
+
+// Recupera o nome do usuário a partir do banco de dados
+$sql = "SELECT nome FROM usuarios WHERE id = '$user_id'";
+$result = mysqli_query($con, $sql);
+
+if ($result) {
+    $user_data = mysqli_fetch_assoc($result);
+    $user_name = $user_data['nome'];
+    
+    
+    $initial = strtoupper(substr($user_name, 0, 2));
+}
+
+
+// Verificar se o formulário foi enviado
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
+    $medicamento = trim($_GET['medicamento']);
+
+    // Preparar a consulta para verificar se o medicamento existe
+    $sql = "SELECT nome, preco FROM medicamentos WHERE nome LIKE ?";
+    $stmt = $con->prepare($sql);
+    $stmt->bind_param("s", $medicamento);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $preco = $row['preco'];
+        header("Location: payment.php?medicamento=" . urlencode($medicamento) . "&preco=" . urlencode($preco));
+        exit;
+    } else {
+        // Medicamento não encontrado
+        echo "<script>
+        var confirma = alert('Medicamento não encontrado.');
+        if (confirma) {
+            window.location.href = 'Index.php';
+        }
+    </script>";
+    }
+}
+
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header("Location: login.php");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
