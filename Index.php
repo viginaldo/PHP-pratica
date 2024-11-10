@@ -50,10 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
     }
 }
 
-if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header("Location: login.php");
-    exit;
-}
 ?>
 
 
