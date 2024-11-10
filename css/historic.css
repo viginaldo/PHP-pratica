@@ -1,0 +1,268 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 90px;
+    font-family: Roboto condensed;
+}
+
+
+header {
+    background-color: #003366;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    height: 81px;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra basica*/
+    z-index: 1000; /*cabeçalho sobre o conteúdo */
+}
+
+header .logo span {
+    color: #00ffcc;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding-top: 50px;
+}
+
+header nav ul li a {
+    font-size: 18px;
+    padding: 8px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Menu principal */
+.menu {
+    display: flex;
+    list-style: none;
+    background-color: #003366;
+    padding: 10px;
+    color: white;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+.menu-icon img {
+    width: 38px;
+    cursor: pointer;
+    padding-top: 7px;
+}
+
+.menu-content {
+    display: none; 
+    position: absolute;
+    top: 60px; /* Ajuste conforme necessário */
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.menu-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu-content a:hover {
+    background-color: #EDAC26;
+}
+
+.menu-content.show {
+    display: block;
+}
+/* Menu de categorias suspenso */
+.categories-menu {
+    display: none; 
+    position: fixed;
+    top: 82px;
+    left: 0;
+    width: 100%;
+    background-color: #003366;
+    padding: 20px 0px;
+    justify-content: space-around;
+    z-index: 900;
+}
+
+.category-item, a {
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.category-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+
+
+header .icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+header .icons input {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px  #9b9595;
+    width: 300px;
+    height: 30px;
+}
+
+.but {
+    padding: 10px 20px;
+    background-color: #003366;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.but:hover {
+    background-color: #09233e;
+    text-decoration: underline;
+}
+
+h1{
+   text-align: center;
+}
+
+/* Estilo da Tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 50px;
+}
+
+table thead {
+    background-color: #003366; /* Cor de fundo do cabeçalho */
+    color: #fff; /* Cor do texto no cabeçalho */
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    border: 0px solid #ddd; /* Borda das células */
+    text-align: center;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Linhas pares */
+}
+
+table tbody tr:hover {
+    background-color: #f1f1f1; /* Cor de fundo ao passar o mouse */
+}
+
+table th {
+    font-weight: bold;
+    text-transform: uppercase; /* Coloca o texto em maiúsculas */
+}
+
+table td button {
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #003366; /* Cor do botão */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table td button:hover {
+    background-color: #081d32 /* Cor do botão ao passar o mouse */
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    table thead {
+        display: none;
+    }
+
+    table, table tbody, table tr, table td {
+        display: block;
+        width: 100%;
+    }
+
+    table tr {
+        margin-bottom: 15px;
+    }
+
+    table td {
+        text-align: left;
+        position: relative;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        padding-left: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
+
+.btn-container {
+    text-align: right;
+}
+
+.btn-container a button {
+    background-color: #003366;  /* Cor de fundo */
+    color: white;  /* Cor do texto */
+    border: none;  /* Remove a borda */
+    padding: 10px 20px;  /* Espaçamento interno */
+    font-size: 16px;  /* Tamanho da fonte */
+    cursor: pointer;  /* Alterar cursor ao passar o mouse */
+    border-radius: 5px;  /* Bordas arredondadas */
+    transition: background-color 0.3s;  /* Transição suave ao passar o mouse */
+}
+
+.btn-container a button:hover {
+    background-color: #002244;  /* Cor de fundo ao passar o mouse */
+}
+
+
+footer {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    padding-left: 380px;
+    background-color: #003366;
+    color: white;
+    position: relative;
+}
+
+footer img {
+    width: 70px; 
+    height: 70px;
+    border-radius: 50%; 
+    margin-left: 80px; 
+}

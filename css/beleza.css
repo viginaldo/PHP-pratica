@@ -1,0 +1,218 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Roboto condensed;
+}
+
+body{
+    padding-top: 78px;
+}
+
+.but {
+    padding: 10px 20px;
+    background-color: #003366;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.but:hover {
+    background-color: #09233e;
+    text-decoration: underline;
+}
+
+header {
+    background-color: #003366;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    height: 81px;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra basica*/
+    z-index: 1000; /*cabeçalho sobre o conteúdo */
+}
+
+header .logo span {
+    color: #00ffcc;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding-top: 50px;
+}
+
+header nav ul li a {
+    font-size: 18px;
+    padding: 8px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Menu principal */
+.menu {
+    display: flex;
+    list-style: none;
+    background-color: #003366;
+    padding: 10px;
+    color: white;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+/* Menu de categorias suspenso */
+.categories-menu {
+    display: none; 
+    position: fixed;
+    top: 82px;
+    left: 0;
+    width: 100%;
+    background-color: #003366;
+    padding: 20px 0px;
+    justify-content: space-around;
+    z-index: 900;
+}
+
+.category-item, a{
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.category-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+
+
+header .icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+header .icons input {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px  #9b9595;
+    width: 300px;
+    height: 30px;
+}
+
+.banner {
+    background-image: url('img/belezaback.png');
+    background-size: 1441px 769px;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    height: 560px;
+}
+
+.banner h2 {
+    font-size: 76px;
+    font-family: Roboto condensed;
+    margin-bottom: 5px;
+    padding-bottom: 40px;
+}
+
+.banner strong {
+    font-size: 28px;
+    font-family: Roboto condensed;
+    margin-bottom: 30px;
+}
+
+.call {
+    position: fixed;
+    right: 20px;
+    bottom: 55px; 
+    z-index: 1000;
+}
+
+.call img {
+    width: 50px;
+    height: auto;
+    border-radius: 50%; 
+    text-decoration-style: none;
+}
+
+
+/* Seção de Produtos e Informações */
+.produtos-info {
+    padding: 20px;
+    background-color: #fff;
+}
+
+.produtos-info h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background-color: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.nam{
+    text-align: center;
+}
+
+.desc{
+    text-align: left;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    border-radius: 5px;
+}
+
+.card h3 {
+    margin: 10px 0;
+}
+
+/* Seção de Vídeos */
+
+footer {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    padding-left: 380px;
+    background-color: #003366;
+    color: white;
+    position: relative;
+}
+
+footer img {
+    width: 70px; 
+    height: 70px;
+    border-radius: 50%; 
+    margin-left: 80px; 
+}

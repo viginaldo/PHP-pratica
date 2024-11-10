@@ -1,0 +1,262 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 81px;
+    font-family: Roboto condensed;
+}
+
+header {
+    background-color: #003366;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    position: fixed;
+    width: 100%;
+    height: 81px;
+    top: 0;
+    left: 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra basica*/
+    z-index: 1000; /*cabeçalho sobre o conteúdo */
+}
+
+header .logo span {
+    color: #00ffcc;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding-top: 50px;
+}
+
+header nav ul li a {
+    font-size: 18px;
+    padding: 8px;
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Menu principal */
+.menu {
+    display: flex;
+    list-style: none;
+    background-color: #003366;
+    padding: 10px;
+    color: white;
+}
+
+.menu li {
+    margin-right: 20px;
+}
+
+.menu-icon img {
+    width: 38px;
+    cursor: pointer;
+    padding-top: 7px;
+}
+
+.menu-content {
+    display: none; 
+    position: absolute;
+    top: 60px; /* Ajuste conforme necessário */
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.menu-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu-content a:hover {
+    background-color: #EDAC26;
+}
+
+.menu-content.show {
+    display: block;
+}
+/* Menu de categorias suspenso */
+.categories-menu {
+    display: none; 
+    position: fixed;
+    top: 82px;
+    left: 0;
+    width: 100%;
+    background-color: #003366;
+    padding: 20px 0px;
+    justify-content: space-around;
+    z-index: 900;
+}
+
+.category-item, a {
+    text-align: center;
+    color: white;
+    text-decoration: none;
+}
+
+.category-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+
+
+header .icons {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+header .icons input {
+    padding: 5px;
+    border-radius: 8px;
+    border: 1px  #9b9595;
+    width: 300px;
+    height: 30px;
+}
+
+.banner {
+    background-image: url('img/content.png');
+    background-size: 1441px 769px;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    height: 560px;
+}
+
+.banner h2 {
+    font-size: 76px;
+    font-family: Roboto condensed;
+    margin-bottom: 5px;
+    padding-bottom: 40px;
+}
+
+.banner strong {
+    font-size: 28px;
+    font-family: Roboto condensed;
+    margin-bottom: 30px;
+}
+
+.but {
+    padding: 10px 20px;
+    background-color: #003366;
+    border: none;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+.but:hover {
+    background-color: #09233e;
+    text-decoration: underline;
+}
+
+.slogan {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+}
+
+.slogan img {
+    align-self: flex-start; 
+    margin-bottom: 10px; 
+    width: 370px; 
+    height: 178px;
+}
+
+.call {
+    position: fixed;
+    right: 20px;
+    bottom: 55px; 
+    z-index: 1000;
+}
+
+.call img {
+    width: 50px;
+    height: auto;
+    border-radius: 50%; 
+    text-decoration-style: none;
+}
+
+
+
+.recommendations {
+    padding: 20px;
+    padding-top: 70px;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+.recommendations h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.products {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.product {
+    text-align: center;
+    margin: 10px;
+}
+
+.product img {
+    height: 117px;
+    width: 200px;
+    object-fit: cover;
+    padding-bottom: 0%;
+}
+
+.product p {
+    font-size: 16px;
+}
+
+.product span {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #003366;
+    margin-top: 5px;
+}
+
+footer {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: space-between;
+    padding-left: 380px;
+    background-color: #003366;
+    color: white;
+    position: relative;
+}
+
+footer img {
+    width: 70px; 
+    height: 70px;
+    border-radius: 50%; 
+    margin-left: 80px; 
+}
