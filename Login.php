@@ -15,7 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    // Verificação do usuário e da senha
+
+    //usuário e da senha
     if ($user && password_verify($password, $user['senha'])) {
         $_SESSION['loggedin'] = true;
         $_SESSION['username'] = $user['nome'];
