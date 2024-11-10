@@ -427,6 +427,7 @@ if (isset($_GET['medicamento']) && isset($_GET['preco'])) {
                     <img src="img/saude.png" alt="Saúde e beleza">
                     <p>Saúde e beleza</p>
                 </a>
+                
             </div>
             <div class="category-item">
                 <a href="vida_saudavel.php">
