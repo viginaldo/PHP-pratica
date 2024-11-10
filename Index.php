@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'conexao.php'; // Conexão com o banco de dados
+include 'conexao.php'; 
 
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_SESSION['id'])) {
@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Medicamento encontrado, pegar o preço e redirecionar para buy.php
         $row = $result->fetch_assoc();
         $preco = $row['preco'];
         header("Location: payment.php?medicamento=" . urlencode($medicamento) . "&preco=" . urlencode($preco));
