@@ -85,7 +85,48 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
             </a>
             <a href="Login.php"><img src="img/logout.png" height="50px" alt="Cart Icon"></a>
         </div>
+
+        <div class="categories-menu" id="categoriesMenu">
+            <div class="category-item">
+                <a href="mom_baby.php">
+                    <img src="img/mom.png" alt="Mamã e bebé">
+                    <p>Mamã e bebé</p>
+                </a>
+            </div>
+            <div class="category-item">
+                <a href="beleza.php">
+                    <img src="img/saude.png" alt="Saúde e beleza">
+                    <p>Saúde e beleza</p>
+                </a>
+            </div>
+            <div class="category-item">
+                <a href="vida_saudavel.php">
+                    <img src="img/vida.png" alt="Vida saudável">
+                    <p>Vida saudável</p>
+                </a>
+            </div>
+            <div class="category-item">
+                <a href="sex.php">
+                    <img src="img/sexualidade.png" alt="Sexualidade">
+                    <p>Sexualidade</p>
+                </a>
+            </div>
+            <div class="category-item">
+                <a href="fitnes.php">
+                    <img src="img/fit.png" alt="Fitness">
+                    <p>Fitness</p>
+                </a>
+            </div>
+            <div class="category-item">
+                <a href="Petshop.php">
+                    <img src="img/pet.png" alt="Petshop">
+                    <p>Petshop</p>
+                </a>
+            </div>
+        </div>
+        <script src="js/script.js"></script>
     </header>
+    
  
     <section>
         <div class="container">
