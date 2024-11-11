@@ -143,12 +143,15 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
            
             <div class="section2">
                 <h2>Cuidados com o Seu Pet</h2>
-                <ul>
-                    <li><strong>Alimentação Adequada:</strong> Fornecemos ração balanceada e saudável para cães, gatos, aves e outros animais de estimação, com ingredientes que ajudam na longevidade e vitalidade dos pets.</li>
-                    <li><strong>Higiene e Saúde:</strong> Temos produtos de higiene, como shampoos e desinfetantes, e serviços de vacinação e check-ups regulares que garantem a saúde e a segurança dos seus animais.</li>
-                    <li><strong>Atividades Físicas e Brinquedos:</strong> Sabemos que o exercício é essencial para a saúde física e mental do seu pet, então oferecemos uma seleção de brinquedos interativos e resistentes.</li>
-                    <li><strong>Afeto e Bem-Estar:</strong> Animais são membros da família e precisam de carinho. Oferecemos orientação para garantir que o seu pet seja bem ajustado e feliz, com todo o amor e atenção que merecem.</li>
-                </ul>
+                
+                <p><strong>Alimentação Adequada:</strong> Fornecemos ração balanceada e saudável para cães, gatos, aves e outros animais de estimação, com ingredientes que ajudam na longevidade e vitalidade dos pets.</p>
+                <br>
+                <p><strong>Higiene e Saúde:</strong> Temos produtos de higiene, como shampoos e desinfetantes, e serviços de vacinação e check-ups regulares que garantem a saúde e a segurança dos seus animais.</p>
+                <br>
+                <p><strong>Atividades Físicas e Brinquedos:</strong> Sabemos que o exercício é essencial para a saúde física e mental do seu pet, então oferecemos uma seleção de brinquedos interativos e resistentes.</p>
+                <br>
+                <p><strong>Afeto e Bem-Estar:</strong> Animais são membros da família e precisam de carinho. Oferecemos orientação para garantir que o seu pet seja bem ajustado e feliz, com todo o amor e atenção que merecem.</p>
+                
             </div>
 
             
