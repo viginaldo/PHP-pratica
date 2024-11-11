@@ -48,7 +48,7 @@ if (isset($_GET['confirmado']) && $_GET['confirmado'] === 'true' && isset($_GET[
 
         // Realiza o pagamento
         $total = $preco * $quantidadeComprada;
-        $pagamento = "M-pesa";
+        $pagamento = "E-mola";
         if ($entrega == 1) {
             $total += 100; // Taxa de entrega
         }
