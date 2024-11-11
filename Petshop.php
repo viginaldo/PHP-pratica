@@ -139,15 +139,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             <strong>Produtos e cuidados para o bem-estar do seu pet.</strong>    
         </section>
 
-        <div class="info-background">
-            <!-- Seção sobre Pet Shop com background -->
-            <div class="info-section">
-                <h2>Sobre o Pet Shop</h2>
-                <p>Nosso pet shop é especializado em oferecer o que há de melhor para o cuidado e conforto dos animais de estimação. Desde alimentos de alta qualidade até acessórios modernos e seguros, oferecemos uma vasta gama de produtos que atendem às necessidades diárias dos pets. Estamos comprometidos com a saúde, felicidade e bem-estar dos animais, ajudando os donos a proporcionar uma vida plena aos seus companheiros.</p>
-            </div>
-
-            <!-- Seção sobre cuidados com os pets com background -->
-            <div class="info-section">
+        <div class="container">
+           
+            <div class="section">
                 <h2>Cuidados com o Seu Pet</h2>
                 <ul>
                     <li><strong>Alimentação Adequada:</strong> Fornecemos ração balanceada e saudável para cães, gatos, aves e outros animais de estimação, com ingredientes que ajudam na longevidade e vitalidade dos pets.</li>
@@ -156,6 +150,32 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     <li><strong>Afeto e Bem-Estar:</strong> Animais são membros da família e precisam de carinho. Oferecemos orientação para garantir que o seu pet seja bem ajustado e feliz, com todo o amor e atenção que merecem.</li>
                 </ul>
             </div>
+
+            
+            <div class="section">
+                <img src="img/alimentacao.png" alt="Alimentação Equilibrada">
+                <div>
+                    <h2>Alimentação Equilibrada</h2>
+                    <p>Uma alimentação balanceada fornece os nutrientes necessários para o corpo. Inclua frutas, vegetais, grãos integrais e proteínas magras para uma saúde ideal.</p>
+                </div>
+            </div>
+    
+            <div class="section">
+                <img src="img/fisica.png" alt="Atividade Física Regular">
+                <div>
+                    <h2>Atividade Física Regular</h2>
+                    <p>Praticar exercícios fortalece o coração, melhora a circulação e libera endorfinas, ajudando no controle de peso e na redução do estresse.</p>
+                </div>
+            </div>
+    
+            <div class="section">
+                <img src="img/sono.png" alt="Sono de Qualidade">
+                <div>
+                    <h2>Sono de Qualidade</h2>
+                    <p>O sono permite a recuperação do corpo e da mente. Dormir de 7 a 9 horas por noite ajuda na memória, no sistema imunológico e na concentração.</p>
+                </div>
+            </div>
+    
         </div>
 
         <!-- Produtos Recomendados (sem background) -->
