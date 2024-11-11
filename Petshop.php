@@ -181,27 +181,69 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     
         </div>
 
-        <!-- Produtos Recomendados (sem background) -->
-        <div class="container">
-            <section class="produtos-info">
-                <h2>Produtos para o Seu Pet</h2>
-                <div class="grid-container">
-                    <div class="card">
-                        <img src="./dogfood.jpg" alt="Ração para Cachorro">
-                        <h3 class="nam">Ração para Cachorro - 15kg</h3>
-                        <div class="desc">
-                            <ul>
-                                <li>Composição balanceada para o seu cachorro</li>
-                                <li>Nutrição completa para cães de todas as idades</li>
-                                <li>Fortalece o sistema imunológico</li>
-                                <li>Ideal para cachorros ativos</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- Additional product cards can be added here following the same format -->
+        <section class="produtos-info">
+            <h2>Produtos para o Seu Pet</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <a href="Whey.php">
+                        <img src="img/whey.png" alt="Whey Protein">
+                    </a>
+                    <h3 class="nam">Whey Protein Isolado </h3>
+                    <p class="desc">
+                        <ul>
+                            <li>Proteína de rápida absorção para ganho muscular</li>
+                            <li>Ideal para recuperação pós-treino</li>
+                            <li>Adequado para intolerantes à lactose</li>
+                            <li>Sabores variados e baixo teor de gordura</li>
+                        </ul>
+                    </p>
                 </div>
-            </section>
-        </div>
+                <div class="card">
+                    <a class="produt" href="creatina.php">
+                        <img src="img/creatina.png" alt="Creatina">
+                    </a>    
+                    <h3 class="nam">Creatina Monohidratada</h3>
+                    <p class="desc">
+                        <ul>
+                            <li>Aumenta força e resistência muscular</li>
+                            <li>Auxilia no ganho de massa muscular</li>
+                            <li>Ótima para treinos de alta intensidade</li>
+                            <li>Uso diário para melhores resultados</li>
+                        </ul>
+                    </p>
+                
+                </div>
+                <div class="card">
+                    <a class="produt" href="bcaa.php">
+                        <img src="img/bcca.png" alt="BCAA">
+                    </a>
+                    <h3 class="nam">BCAA 2:1:1 - 60 Cápsulas</h3>
+                    <p class="desc">
+                        <ul>
+                            <li>Previne fadiga muscular em treinos intensos</li>
+                            <li>Melhora a recuperação pós-exercício</li>
+                            <li>Aminoácidos essenciais para ganho de massa</li>
+                            <li>Ideal para uso pré e pós-treino</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="card">
+                    <a href="">
+                        <img src="img/dogfood.jpg" alt="Ração para Cachorro">
+                    </a>
+                    <h3 class="nam">Ração para Cachorro - 15kg</h3>
+                    <div class="desc">
+                        <ul>
+                            <li>Composição balanceada para o seu cachorro</li>
+                            <li>Nutrição completa para cães de todas as idades</li>
+                            <li>Fortalece o sistema imunológico</li>
+                            <li>Ideal para cachorros ativos</li>
+                        </ul>
+                    </div>
+                </div>
+         </div>
+     </section>
+        
 
         <footer>
             <p>Copyright Notice © [2024] Pet Shop. All rights reserved.</p>
