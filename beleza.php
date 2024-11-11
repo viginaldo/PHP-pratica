@@ -90,7 +90,7 @@ if ($result) {
                 </a>
             </div>
             <div class="category-item">
-                <a href="#">
+                <a href="Petshop.php">
                     <img src="img/pet.png" alt="Petshop">
                     <p>Petshop</p>
                 </a>

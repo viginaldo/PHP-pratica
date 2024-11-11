@@ -312,7 +312,7 @@ if (isset($_GET['confirmado']) && $_GET['confirmado'] === 'true' && isset($_GET[
                 </a>
             </div>
             <div class="category-item">
-                <a href="#">
+                <a href="Petshop.php">
                     <img src="img/pet.png" alt="Petshop">
                     <p>Petshop</p>
                 </a>
