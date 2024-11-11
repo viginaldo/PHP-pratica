@@ -141,7 +141,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
 
         <div class="container">
            
-            <div class="section">
+            <div class="section2">
                 <h2>Cuidados com o Seu Pet</h2>
                 <ul>
                     <li><strong>Alimentação Adequada:</strong> Fornecemos ração balanceada e saudável para cães, gatos, aves e outros animais de estimação, com ingredientes que ajudam na longevidade e vitalidade dos pets.</li>
