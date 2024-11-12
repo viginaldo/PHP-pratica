@@ -128,8 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Registrar Novo Usuário</h2>
         <form action="Registar.php" method="POST">
             <input type="text" name="nome" placeholder="Nome" required>
-            <input type="email" name="email" placeholder="E-mail" required>
-            <input type="password" name="senha" placeholder="Senha" required>
+            <input type="email" name="email" placeholder="E-mail" id="pass1" required>
+            <input type="password" name="senha" placeholder="Senha" id="pass1" required>
+            <input type="password" name="confirmacao" placeholder="Confirmacao" required>
             <button type="submit">Registrar</button>
             <?php if (isset($error)): ?>
                 <p class="error"><?php echo $error; ?></p>
@@ -140,5 +141,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p>Tem um conta? <a href="Login.php">Clique aqui</a></p>
         </form>
     </div>
+
+    <script>
+        const password = document.getElementById('pass1').value;
+        const confirmPassword = document.getElementById('pass2').value;
+
+        if (password !== confirmPassword) {
+            alert("As senhas devem ser iguais.");
+        }
+
+    </script>
 </body>
 </html>
