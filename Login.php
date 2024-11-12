@@ -4,6 +4,12 @@
 session_start();
 include('conexao.php'); // Conexão com o banco de dados
 
+if (isset($_SESSION['success'])) {
+    echo "<p class='success'>{$_SESSION['success']}</p>";
+    unset($_SESSION['success']); // Remove a mensagem após exibir
+}
+
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];

@@ -5,32 +5,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $nome = $_POST['nome'];
     $email = $_POST['email'];
     $senha = $_POST['senha'];
+    $confirmacao = $_POST['confirmacao'];
 
+    if ($senha !== $confirmacao) {
+        $error = "As senhas não coincidem!";
+    }else{
     
-    $stmt = $con->prepare("SELECT * FROM usuarios WHERE nome = ?");
-    $stmt->bind_param("s", $nome);
-    $stmt->execute();
-    $result = $stmt->get_result();
+        $stmt = $con->prepare("SELECT * FROM usuarios WHERE nome = ?");
+        $stmt->bind_param("s", $nome);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    if ($result->num_rows > 0) {
-        $error = "Este e-mail já está cadastrado!";
-    } else {
-       
-        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-
-       
-        $stmt = $con->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $nome, $email, $senhaHash);
-
-       
-        if ($stmt->execute()) {
-            $success = "Usuário registrado com sucesso!";
-            header("Location: Login.php");
+        if ($result->num_rows > 0) {
+            $error = "Este user já está cadastrado!";
         } else {
-            $error = "Erro ao registrar usuário: " . $stmt->error;
+        
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+        
+            $stmt = $con->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)");
+            $stmt->bind_param("sss", $nome, $email, $senhaHash);
+
+        
+            if ($stmt->execute()) {
+                $_SESSION['success'] = "Usuário registrado com sucesso!";
+                header("Location: Login.php");
+                exit();
+            } else {
+                $error = "Erro ao registrar usuário: " . $stmt->error;
+            }
         }
+        $stmt->close();
     }
-    $stmt->close();
     $con->close();
 }
 ?>
@@ -128,9 +134,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <h2>Registrar Novo Usuário</h2>
         <form action="Registar.php" method="POST">
             <input type="text" name="nome" placeholder="Nome" required>
-            <input type="email" name="email" placeholder="E-mail" id="pass1" required>
+            <input type="email" name="email" placeholder="E-mail" required>
             <input type="password" name="senha" placeholder="Senha" id="pass1" required>
-            <input type="password" name="confirmacao" placeholder="Confirmacao" required>
+            <input type="password" name="confirmacao" placeholder="Confirmacao" id="pass2"  required>
             <button type="submit">Registrar</button>
             <?php if (isset($error)): ?>
                 <p class="error"><?php echo $error; ?></p>
@@ -141,15 +147,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p>Tem um conta? <a href="Login.php">Clique aqui</a></p>
         </form>
     </div>
-
-    <script>
-        const password = document.getElementById('pass1').value;
-        const confirmPassword = document.getElementById('pass2').value;
-
-        if (password !== confirmPassword) {
-            alert("As senhas devem ser iguais.");
-        }
-
-    </script>
 </body>
 </html>
