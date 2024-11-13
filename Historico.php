@@ -9,6 +9,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
 
 $user_id = $_SESSION['id'];
 
+$data_filtro = isset($_GET['data_venda']) ? $_GET['data_venda'] : '';
+$medicamento_filtro = isset($_GET['medicamento']) ? $_GET['medicamento'] : '';
+$venda_id_filtro = isset($_GET['venda_id']) ? $_GET['venda_id'] : '';
+
+// Inicia a parte básica da consulta SQL
 $sql = "
     SELECT 
         v.id AS venda_id,
@@ -26,17 +31,37 @@ $sql = "
         farmacias f ON v.farmacia_id = f.id
     JOIN 
         medicamentos m ON v.medicamento_id = m.id
-    JOIN 
-        usuarios u ON u.id = v.us_id
     WHERE 
-        u.id = '$user_id'
-    ORDER BY 
-        v.data_venda DESC
+        v.us_id = '$user_id'
 ";
 
-$result = mysqli_query($con, $sql);
-?>
+// Aplica o filtro de data, se fornecido
+if ($data_filtro !== '') {
+    // Verifica se a data está no formato correto 'YYYY-MM-DD'
+    $sql .= " AND DATE(v.data_venda) = '$data_filtro'";
+}
 
+// Aplica o filtro de medicamento, se fornecido
+if ($medicamento_filtro !== '') {
+    $sql .= " AND m.nome LIKE '%$medicamento_filtro%'";
+}
+
+// Aplica o filtro de ID da venda, se fornecido
+if ($venda_id_filtro !== '') {
+    $sql .= " AND v.id = '$venda_id_filtro'";
+}
+
+// Ordena os resultados pela data de venda
+$sql .= " ORDER BY v.data_venda DESC";
+
+// Executa a consulta
+$result = mysqli_query($con, $sql);
+
+// Verifica se houve erro na execução da consulta
+if (!$result) {
+    die("Erro na consulta: " . mysqli_error($con));
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt">
@@ -45,6 +70,52 @@ $result = mysqli_query($con, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PharmaFind</title>
     <link rel="stylesheet" href="css/historic.css">
+
+    <style>
+        /* Estilos gerais do formulário */
+        .form-pesquisa {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:right;
+            gap: 5px;
+            font-family: Roboto condensed;
+            font-weight: normal; /* Espaço entre os itens */
+
+        }
+
+        .label-name{
+            font-weight: bold;
+            padding-top: 10px;;
+        }
+
+        /* Estilos dos campos de entrada */
+        .input-pesquisa {
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 200px; /* Tamanho fixo para inputs */
+        }
+
+        /* Estilos para o botão de pesquisa */
+        .btn-pesquisa {
+            padding: 10px 20px;
+            background-color: #003366;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-pesquisa:hover {
+            background-color: #002244;
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -62,11 +133,6 @@ $result = mysqli_query($con, $sql);
             </ul>
         </nav>
         <div class="icons">
-            <form method="GET" action="">
-                <input type="text" name="medicamento" placeholder="Pesquise o seu medicamento aqui..." required>
-                <button class="but" type="submit">Pesquisar</button>
-            </form>
-            
             <a href="#"><img src="img/user.png" height="50px" alt="User Icon"></a>
             <a href="Login.php"><img src="img/logout.png" height="50px" alt="Cart Icon"></a>
         </div>
@@ -114,6 +180,20 @@ $result = mysqli_query($con, $sql);
     </header>
 
     <h1>Histórico de Compras</h1>
+    <b>
+    <form action="Historico.php" method="GET" class="form-pesquisa">
+        <label class="label-name">Data da Compra:</label>
+        <input type="date" name="data_venda" id="data_venda" value="<?php echo isset($_GET['data_venda']) ? $_GET['data_venda'] : ''; ?>" class="input-pesquisa">
+
+        <label class="label-name">Nome do Med:</label>
+        <input type="text" name="medicamento" id="medicamento" value="<?php echo isset($_GET['medicamento']) ? $_GET['medicamento'] : ''; ?>" placeholder="Nome do medicamento" class="input-pesquisa" >
+
+        <label class="label-name">Id da Compra </label>
+        <input type="text" name="venda_id" id="venda_id" value="<?php echo isset($_GET['venda_id']) ? $_GET['venda_id'] : ''; ?>" class="input-pesquisa" placeholder="ID da Venda">
+
+        <button type="submit" class="btn-pesquisa">Pesquisar</button>
+    </form>
+
     <table>
         <thead>
             <tr>

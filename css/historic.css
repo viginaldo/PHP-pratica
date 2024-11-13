@@ -157,6 +157,8 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 50px;
+    font-family: Roboto condensed;
+    font-weight: normal;
 }
 
 table thead {
