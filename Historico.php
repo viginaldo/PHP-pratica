@@ -87,8 +87,7 @@ if (!$result) {
         }
 
         .label-name{
-            font-weight: bold;
-            padding-top: 10px;;
+            padding-top: 10px;
         }
 
         /* Estilos dos campos de entrada */
@@ -180,7 +179,7 @@ if (!$result) {
     </header>
 
     <h1>Histórico de Compras</h1>
-    <b>
+    <b><b>
     <form action="Historico.php" method="GET" class="form-pesquisa">
         <label class="label-name">Data da Compra:</label>
         <input type="date" name="data_venda" id="data_venda" value="<?php echo isset($_GET['data_venda']) ? $_GET['data_venda'] : ''; ?>" class="input-pesquisa">
