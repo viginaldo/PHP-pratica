@@ -330,7 +330,7 @@ if (isset($_GET['confirmado']) && $_GET['confirmado'] === 'true' && isset($_GET[
 
             <div id="codeSection" style="display: none;">
                 <label for="confirm">Código:</label>
-                <input type="text" id="confirm" name="confirm" placeholder="Digite o código recebido" required>
+                <input type="text" id="confirm" name="confirm" maxlength="6" placeholder="Digite o código recebido" required>
             </div>
 
             <button type="button" class="submit-button" onclick="confirmMPesaPayment()">Confirmar Pagamento</button>

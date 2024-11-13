@@ -346,19 +346,19 @@ if (isset($_GET['confirmado']) && $_GET['confirmado'] === 'true' && isset($_GET[
            
             
             <label for="cardNumber">Número do Cartão:</label>
-            <input type="text" id="cardNumber" name="cardNumber" placeholder="Número do cartão" required>
+            <input type="text" id="cardNumber" name="cardNumber" maxlength="16" placeholder="Número do cartão" required>
 
             <label for="expiryDate">Data de Validade:</label>
             <input type="date" id="expiryDate" name="expiryDate" required>
 
             <label for="cvv">Código de Segurança (CVV):</label>
-            <input type="number" id="cvv" name="cvv" placeholder="CVV" required>
+            <input type="number" id="cvv" name="cvv" max="999" placeholder="CVV" required>
 
             <label for="email">E-mail de Confirmação:</label>
             <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
 
             <label for="phoneNumber">Contacto:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Numero do Celular" maxlength="16" required>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Numero do Celular" maxlength="9" required>
 
             <button type="button" class="submit-button" onclick="confirmCardPayment()">Confirmar Pagamento</button>
             <button type="button" class="back-button" onclick="window.history.back();">Voltar</button>

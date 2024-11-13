@@ -332,7 +332,7 @@ if (isset($_GET['confirmado']) && $_GET['confirmado'] === 'true' && isset($_GET[
             <!-- Div com o campo do código de confirmação, que só aparece após a primeira confirmação -->
             <div id="codeSection">
                 <label for="confirm">Código:</label>
-                <input type="text" id="confirm" name="confirm" placeholder="Digite o código recebido" required>
+                <input type="text" id="confirm" name="confirm" maxlength="6" placeholder="Digite o código recebido" required>
             </div>
 
             <button type="button" class="submit-button" onclick="confirmEmolaPayment()">Confirmar Pagamento</button>

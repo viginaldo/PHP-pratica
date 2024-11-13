@@ -384,6 +384,29 @@ if (isset($_GET['medicamento']) && isset($_GET['preco'])) {
             pointer-events: none;
         }
 
+        /*botão de detalhes */
+        .details-button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .details-button:hover {
+            background-color: #007BFF; 
+            transform: scale(1.05);
+        }
+
+        .details-button:active {
+            background-color: #003366; 
+            transform: scale(0.98); 
+        }
+
     </style>
 </head>
 <body>
@@ -472,7 +495,12 @@ if (isset($_GET['medicamento']) && isset($_GET['preco'])) {
                 </p>
                 <p>Preço: <?php echo htmlspecialchars($preco); ?> MT</p>
                 <br>
-                <a href="buy.php?medicamento=<?php echo htmlspecialchars($medicamento);?>">Detalhes</a>
+                <a href="buy.php?medicamento=<?php echo htmlspecialchars($medicamento);?>">
+                    <button type="button" class="details-button">
+                        Detalhes
+                    </button>
+
+                </a>
             </strong>
         </div>
 

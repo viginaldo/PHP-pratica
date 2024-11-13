@@ -72,7 +72,7 @@ if (!$result) {
     <link rel="stylesheet" href="css/historic.css">
 
     <style>
-        /* Estilos gerais do formulário */
+        
         .form-pesquisa {
             max-width: 100%;
             margin: 0 auto;
@@ -80,9 +80,9 @@ if (!$result) {
             display: flex;
             flex-wrap: wrap;
             justify-content:right;
-            gap: 5px;
+            gap: 10px;
             font-family: Roboto condensed;
-            font-weight: normal; /* Espaço entre os itens */
+            font-weight: normal; 
 
         }
 
@@ -90,16 +90,16 @@ if (!$result) {
             padding-top: 10px;
         }
 
-        /* Estilos dos campos de entrada */
+        
         .input-pesquisa {
             padding: 8px;
             font-size: 14px;
             border-radius: 4px;
             border: 1px solid #ddd;
-            width: 200px; /* Tamanho fixo para inputs */
+            width: 200px; 
         }
 
-        /* Estilos para o botão de pesquisa */
+        
         .btn-pesquisa {
             padding: 10px 20px;
             background-color: #003366;
