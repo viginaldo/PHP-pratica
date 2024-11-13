@@ -55,8 +55,10 @@ if (mysqli_num_rows($result) > 0) {
     
     // Cabeçalho
     $pdf->SetFont('Helvetica', 'B', 16);
-    $pdf->Ln(30);
-    $pdf->Cell(0, 10, 'PHARMAFIND - Extrato de Compras', 0, 1, 'C');
+    $pdf->Ln(20);
+    $pdf->Cell(0, 10, 'PHARMAFIND', 0, 1, 'C');
+    $pdf->SetFont('Helvetica', 'B', 14);
+    $pdf->Cell(0, 10, 'Extrato de Compras', 0, 1, 'C');
     $pdf->SetFont('Helvetica', 'I', 12);
     $pdf->Cell(0, 10, 'Tel: +258 850 312 999 | Email: info@pharmafind.com', 0, 1, 'C');
     

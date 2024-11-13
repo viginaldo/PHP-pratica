@@ -75,11 +75,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         </div>
         <nav>
             <ul>
-                <li><a href="Index.php">Home</a></li>
-                <li><a href="#" onclick="toggleCategories();">Category</a></li>
+                <li><a href="Index.php">Inicio</a></li>
+                <li><a href="#" onclick="toggleCategories();">Categorias</a></li>
                 <li><a href="Historico.php">Historico</a></li>
-                <li><a href="about.php">About us</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="about.php">Sobre nos</a></li>
+                <li><a href="contact.php">Contacto</a></li>
             </ul>
         </nav>
         <div class="icons">
