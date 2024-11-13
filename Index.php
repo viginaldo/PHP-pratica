@@ -178,10 +178,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
                 
             </div>
             <div class="product">
-                <a href="payment.php?medicamento=<?php echo urlencode("Ibuprofen"); ?>&preco=<?php    echo urlencode(100); ?>">
+                <a href="payment.php?medicamento=<?php echo urlencode("Ibuprofeno"); ?>&preco=<?php    echo urlencode(100); ?>">
                     <img src="img/Ibu.png" alt="Ibuprofen">
                 </a>
-                <h4 class="product-name">Ibuprofen</h4>
+                <h4 class="product-name">Ibuprofeno</h4>
                 
             </div>
         </div>
