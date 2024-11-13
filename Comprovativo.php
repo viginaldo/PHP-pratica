@@ -94,11 +94,12 @@ if (isset($_GET['venda_id'])) {
         $pdf->Cell(25, 10, ($row['entrega'] == 1 ? 'Sim' : 'Nao'), 1, 1, 'C');
         $pdf->Ln(10);
         
-        // Deliver
+        // Deliver 
+        $pdf->SetFont('Helvetica', 'B', 10);
         $pdf->Cell(60, 10, 'Entrega:', 0, 0, 'L'); 
         $pdf->Cell(60, 10, ($row['entrega'] == 1 ? number_format(100, 2, ',', '.').' MT' : number_format(0, 2, ',', '.').' MT'), 0, 1, 'C');
 
-        $pdf->SetFont('Helvetica', 'B', 10);
+       
         // Subtotal
         $pdf->SetFont('Helvetica', 'B', 10);
         $pdf->Cell(60, 10, 'Subtotal:', 0, 0, 'L');
