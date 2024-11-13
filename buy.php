@@ -26,7 +26,6 @@ $medicamentos = [
    
     ' ' => 'Index.php',
     'Vitamina C' => 'vitaminaC.php',
-    'Ibuprofen' => 'fitnes.php',
     'Paracetamol' => 'buy.php',
     'Creatina' => 'creatina.php',
     'Preservativo' => 'Condom.php',
@@ -207,7 +206,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
                         <span>Entrega</span>
                     </div> -->
                     <div class="acction">
-                        <img src="img/bloc.png" alt="Imagem ao lado do formulário">
+                        <a href="Location.php">
+                            <img src="img/bloc.png" alt="Imagem ao lado do formulário">
+                        </a>
                         <span>Localizacao</span>
                     </div> 
                 </div>  

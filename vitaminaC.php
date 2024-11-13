@@ -148,7 +148,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
                         </a>
                     </div>
                     <div class="acction">
-                        <img src="img/bloc.png" alt="Localização">
+                        <a href="Location.php">
+                            <img src="img/bloc.png" alt="Localização">
+                        </a>
                         <span>Localização</span>
                     </div>
                 </div>
