@@ -92,20 +92,19 @@ if (isset($_GET['venda_id'])) {
         $pdf->Cell(30, 10, number_format($row['preco'], 2, ',', '.'), 1, 0, 'C');
         $pdf->Cell(40, 10, $row['m_pagamento'], 1, 0, 'C');
         $pdf->Cell(25, 10, ($row['entrega'] == 1 ? 'Sim' : 'Nao'), 1, 1, 'C');
-
-        // Subtotal, IVA e total
         $pdf->Ln(10);
+        
+        // Deliver
+        $pdf->Cell(60, 10, 'Entrega:', 0, 0, 'L'); 
+        $pdf->Cell(60, 10, ($row['entrega'] == 1 ? number_format(100, 2, ',', '.').' MT' : number_format(0, 2, ',', '.').' MT'), 0, 1, 'C');
+
+        $pdf->SetFont('Helvetica', 'B', 10);
         // Subtotal
         $pdf->SetFont('Helvetica', 'B', 10);
         $pdf->Cell(60, 10, 'Subtotal:', 0, 0, 'L');
         $pdf->Cell(60, 10, number_format($row['total'] - ($row['total'] * 0.16), 2, ',', '.').' MT', 0, 1, 'C'); 
         $pdf->SetFont('Helvetica', 'B', 10);
 
-        // Deliver
-        $pdf->Cell(60, 10, 'Entrega:', 0, 0, 'L'); 
-        $pdf->Cell(60, 10, ($row['entrega'] == 1 ? number_format(100, 2, ',', '.').' MT' : number_format(0, 2, ',', '.').' MT'), 0, 1, 'C');
-
-        $pdf->SetFont('Helvetica', 'B', 10);
         // IVA
         $pdf->Cell(60, 10, 'IVA:', 0, 0, 'L');
         $pdf->Cell(60, 10, number_format(($row['total'] * 0.16), 2, ',', '.').' MT', 0, 1, 'C');
