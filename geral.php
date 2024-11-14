@@ -25,7 +25,7 @@ $sql = "
     m.preco,
     mg.estado,
     CASE WHEN SUM(m.quant) > 0 THEN 1 ELSE 0 END AS estado_disponibilidade,
-    CONCAT(UPPER(SUBSTRING(mg.tipo, 1, 1)), LPAD(mg.id, 6, '0')) AS Rubrica
+    CONCAT(UPPER(SUBSTRING(mg.tipo, 1, 1)), LPAD(mg.id, 6, '0'),'P') AS Rubrica
 FROM 
     medicamentos_gerais mg
 LEFT JOIN 
@@ -288,42 +288,54 @@ $stmt->close();
     <input type="text" name="medicamento" value="<?php echo isset($_GET['medicamento']) ? $_GET['medicamento'] : ''; ?>" class="input-pesquisa">
 
     <label class="label-name">Rubrica:</label>
-    <input type="text" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>" placeholder="ID" style="width: 60px;" class="input-pesquisa">
+    <input type="text" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>" placeholder="ID" style="width: 90px;" class="input-pesquisa">
 
     <select name="tipo" id="tipo" class="input-pesquisa">
         <option value="">Selecione um tipo</option>
-        <option value="ANTIBIÓTICOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'ANTIBIÓTICOS' ? 'selected' : ''; ?>>Antibióticos</option>
-        <option value="CARDIOVASULAR" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'CARDIOVASULAR' ? 'selected' : ''; ?>>Cardiovascular</option>
-        <option value="DIGESTIVO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'DIGESTIVO' ? 'selected' : ''; ?>>Digestivo</option>
-        <option value="ENDOCRINOLOGIA E METABOLISMO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'ENDOCRINOLOGIA E METABOLISMO' ? 'selected' : ''; ?>>Endocrinologia e Metabolismo</option>
-        <option value="GENITO-URINÁRIO E HORMONAS SEXUAIS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'GENITO-URINÁRIO E HORMONAS SEXUAIS' ? 'selected' : ''; ?>>Genito-Urinário e Hormonas Sexuais</option>
-        <option value="RESPIRATÓRIO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'RESPIRATÓRIO' ? 'selected' : ''; ?>>Respiratório</option>
-        <option value="SANGUE" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'SANGUE' ? 'selected' : ''; ?>>Sangue</option>
-        <option value="SISTEMA NERVOSO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'SISTEMA NERVOSO' ? 'selected' : ''; ?>>Sistema Nervoso</option>
         <option value="ANTI-MALARICO (ANTIBIOTICOS)" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'ANTI-MALARICO (ANTIBIOTICOS)' ? 'selected' : ''; ?>>Anti-Malarico (Antibióticos)</option>
         <option value="ANTI MICÓTICO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'ANTI MICÓTICO' ? 'selected' : ''; ?>>Anti Micótico</option>
         <option value="ANTI-VIRAL" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'ANTI-VIRAL' ? 'selected' : ''; ?>>Anti-Viral</option>
-        <option value="DIURETICOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'DIURETICOS' ? 'selected' : ''; ?>>Diuréticos</option>
-        <option value="E.H.E E ÁCIDO BASE" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'EQUILÍBRIO HIDRO-ELÉTRICO E ÁCIDO BASE' ? 'selected' : ''; ?>>Equilíbrio Hidro-Elétrico e Ácido Base</option>
-        <option value="NUTRIÇÃO, SAIS MINERAIS E VITAMINAS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'NUTRIÇÃO, SAIS MINERAIS E VITAMINAS' ? 'selected' : ''; ?>>Nutrição, Sais Minerais e Vitaminas</option>
-        <option value="FÁRMACOS USADOS NOS TRANSTORNOS ALÉRGICOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'FÁRMACOS USADOS NOS TRANSTORNOS ALÉRGICOS' ? 'selected' : ''; ?>>Fármacos Usados nos Transtornos Alérgicos</option>
-        <option value="FÁRMACOS USADOS NAS AFECÇÕES MUSCULOS-ESQUELÉTICOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'FÁRMACOS USADOS NAS AFECÇÕES MUSCULOS-ESQUELÉTICOS' ? 'selected' : ''; ?>>Fármacos Usados nas Afecções Musculoesqueléticas</option>
+        <option value="CARDIOVASULAR" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'CARDIOVASULAR' ? 'selected' : ''; ?>>Cardiovascular</option>
+        <option value="CUIDADOS COM A PELE" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'CUIDADOS COM A PELE' ? 'selected' : ''; ?>>Cuidados com a Pele</option>
         <option value="DERMATOLOGIA" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'DERMATOLOGIA' ? 'selected' : ''; ?>>Dermatologia</option>
+        <option value="DIGESTIVO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'DIGESTIVO' ? 'selected' : ''; ?>>Digestivo</option>
+        <option value="ENDOCRINOLOGIA E METABOLISMO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'ENDOCRINOLOGIA E METABOLISMO' ? 'selected' : ''; ?>>Endocrinologia e Metabolismo</option>
+        <option value="E.H.E E ÁCIDO BASE" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'EQUILÍBRIO HIDRO-ELÉTRICO E ÁCIDO BASE' ? 'selected' : ''; ?>>Equilíbrio Hidro-Elétrico e Ácido Base</option>
+        <option value="FÁRMACOS USADOS NAS AFECÇÕES MUSCULOS-ESQUELÉTICOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'FÁRMACOS USADOS NAS AFECÇÕES MUSCULOS-ESQUELÉTICOS' ? 'selected' : ''; ?>>Fármacos Usados nas Afecções Musculoesqueléticas</option>
+        <option value="FÁRMACOS USADOS NOS TRANSTORNOS ALÉRGICOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'FÁRMACOS USADOS NOS TRANSTORNOS ALÉRGICOS' ? 'selected' : ''; ?>>Fármacos Usados nos Transtornos Alérgicos</option>
+        <option value="GENITO-URINÁRIO E HORMONAS SEXUAIS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'GENITO-URINÁRIO E HORMONAS SEXUAIS' ? 'selected' : ''; ?>>Genito-Urinário e Hormonas Sexuais</option>
+        <option value="HIGIENE PESSOAL" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'HIGIENE PESSOAL' ? 'selected' : ''; ?>>Higiene Pessoal</option>
+        <option value="INFANTIL" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'INFANTIL' ? 'selected' : ''; ?>>Infantil</option>
+        <option value="NUTRIÇÃO, SAIS MINERAIS E VITAMINAS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'NUTRIÇÃO, SAIS MINERAIS E VITAMINAS' ? 'selected' : ''; ?>>Nutrição, Sais Minerais e Vitaminas</option>
         <option value="OTORRINOLARINGOLOGIA" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'OTORRINOLARINGOLOGIA' ? 'selected' : ''; ?>>Otorrinolaringologia</option>
         <option value="OFTALMOLOGIA" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'OFTALMOLOGIA' ? 'selected' : ''; ?>>Oftalmologia</option>
+        <option value="PRODUTOS ÍNTIMOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'PRODUTOS ÍNTIMOS' ? 'selected' : ''; ?>>Produtos Íntimos</option>
+        <option value="RESPIRATÓRIO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'RESPIRATÓRIO' ? 'selected' : ''; ?>>Respiratório</option>
+        <option value="SANGUE" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'SANGUE' ? 'selected' : ''; ?>>Sangue</option>
+        <option value="SISTEMA NERVOSO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'SISTEMA NERVOSO' ? 'selected' : ''; ?>>Sistema Nervoso</option>
+        <option value="SUPLEMENTOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'SUPLEMENTOS' ? 'selected' : ''; ?>>Suplementos</option>
+        <option value="VETERINÁRIO" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'VETERINÁRIO' ? 'selected' : ''; ?>>Veterinário</option>
     </select>
+
 
 
     <select name="forma" id="forma" class="input-pesquisa">
         <option value="">Selecione uma forma</option>
+        <option value="Adesivo" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Adesivo' ? 'selected' : ''; ?>>Adesivo</option>
+        <option value="Aerosol" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Aerosol' ? 'selected' : ''; ?>>Aerosol</option>
         <option value="Comprimido" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Comprimido' ? 'selected' : ''; ?>>Comprimido</option>
-        <option value="Injetável" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Injetável' ? 'selected' : ''; ?>>Injetável</option>
-        <option value="Suspensão" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Suspensão' ? 'selected' : ''; ?>>Suspensão</option>
-        <option value="Xarope" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Xarope' ? 'selected' : ''; ?>>Xarope</option>
-        <option value="Pomada" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Pomada' ? 'selected' : ''; ?>>Pomada</option>
         <option value="Creme" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Creme' ? 'selected' : ''; ?>>Creme</option>
-        <option value="Solução" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Solução' ? 'selected' : ''; ?>>Solução</option>
+        <option value="Gel" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Gel' ? 'selected' : ''; ?>>Gel</option>
+        <option value="Injetável" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Injetável' ? 'selected' : ''; ?>>Injetável</option>
+        <option value="Loção" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Loção' ? 'selected' : ''; ?>>Loção</option>
+        <option value="Pastilha" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Pastilha' ? 'selected' : ''; ?>>Pastilha</option>
+        <option value="Pomada" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Pomada' ? 'selected' : ''; ?>>Pomada</option>
+        <option value="Pó" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Pó' ? 'selected' : ''; ?>>Pó</option>
+        <option value="Suspensão" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Suspensão' ? 'selected' : ''; ?>>Suspensão</option>
+        <option value="Suplemento" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Suplemento' ? 'selected' : ''; ?>>Suplemento</option>
+        <option value="Xarope" <?php echo isset($_GET['forma']) && $_GET['forma'] == 'Xarope' ? 'selected' : ''; ?>>Xarope</option>
     </select>
+
 
     <select name="disponibilidade" class="input-pesquisa">
         <option value="">Selecione a disponibilidade</option>
@@ -353,7 +365,7 @@ $stmt->close();
     <?php if (mysqli_num_rows($result) > 0): ?>
     <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <tr>
-            <td><?php echo $row['Rubrica'].'P'; ?></td>
+            <td><?php echo $row['Rubrica']; ?></td>
             <td><?php echo $row['tipo']; ?></td>
             <td><?php echo $row['designacao']; ?></td>
             <td><?php echo $row['forma']; ?></td>

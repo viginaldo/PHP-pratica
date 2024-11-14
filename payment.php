@@ -258,6 +258,7 @@ if (isset($_GET['medicamento']) && isset($_GET['preco'])) {
             color: #ffffff;
             border: none;
             padding: 12px 25px;
+            margin-bottom: 10px;
             border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
@@ -556,7 +557,7 @@ if (isset($_GET['medicamento']) && isset($_GET['preco'])) {
 
         <!-- Botão de Confirmação -->
         <button class="submit-button" onclick="confirmPayment()">Continuar</button>
-
+        <button type="button" class="submit-button" onclick="window.history.back();">Voltar</button>
         <script>
             let basePrice = <?php echo $preco; ?>;  // Preço base (passado via PHP)
             let deliveryFee = 100;  // Taxa de entrega
