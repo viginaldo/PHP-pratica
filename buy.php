@@ -194,7 +194,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
                 <div class="container-card">
                     <div class="acction">
                         <!-- Redireciona para buy.php com o nome do medicamento e preço -->
-                        <a href="payment.php?medicamento=<?php echo urlencode("Paracetamol"); ?>&preco=<?php echo urlencode(300); ?>">
+                        <a href="payment.php?medicamento=<?php echo urlencode("Paracetamol"); ?>&preco=<?php echo urlencode(15); ?>">
                             <img src="img/buy.png" alt="Imagem ao lado do formulário">
                             <span>Comprar</span>
                         </a>
