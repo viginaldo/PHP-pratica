@@ -213,6 +213,7 @@ $stmt->close();
     <script src="js/script.js"></script>
 </header>
 
+
 <h1>Medicamentos Gerais</h1>
 <b><b>
 <form action="geral.php" method="GET" class="form-pesquisa">
@@ -318,3 +319,4 @@ $stmt->close();
 <?php
 mysqli_close($con);
 ?>
+
