@@ -78,8 +78,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                 <li><a href="Index.php">Inicio</a></li>
                 <li><a href="#" onclick="toggleCategories();">Categorias</a></li>
                 <li><a href="Historico.php">Historico</a></li>
+                <li><a href="geral.php">Lista Geral</a></li>
                 <li><a href="about.php">Sobre nos</a></li>
-                <li><a href="contact.php">Contacto</a></li>
             </ul>
         </nav>
         <div class="icons">

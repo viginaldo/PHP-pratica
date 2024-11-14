@@ -7,14 +7,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true || !isset($_
     exit;
 }
 
-
 $medicamento_filtro = isset($_GET['medicamento']) ? '%' . $_GET['medicamento'] . '%' : '';
-$venda_id_filtro = isset($_GET['venda_id']) ? $_GET['venda_id'] : '';
+$id_filtro = isset($_GET['id']) ? $_GET['id'] : '';
 $tipoSelecionado = isset($_GET['tipo']) ? $_GET['tipo'] : '';
 $formaSelecionada = isset($_GET['forma']) ? $_GET['forma'] : '';
 $disponibilidadeSelecionada = isset($_GET['disponibilidade']) ? $_GET['disponibilidade'] : '';
 
-//filtros
+// Filtros
 $sql = "
     SELECT 
     mg.id AS medicamento_geral_id,
@@ -25,17 +24,17 @@ $sql = "
     mg.instrucao,
     m.preco,
     mg.estado,
-    CASE WHEN SUM(m.quant) > 0 THEN 1 ELSE 0 END AS estado_disponibilidade
+    CASE WHEN SUM(m.quant) > 0 THEN 1 ELSE 0 END AS estado_disponibilidade,
+    CONCAT(UPPER(SUBSTRING(mg.tipo, 1, 1)), LPAD(mg.id, 6, '0')) AS Rubrica
 FROM 
     medicamentos_gerais mg
 LEFT JOIN 
     medicamentos m ON mg.designacao = m.nome
 WHERE 
     1=1
-
 ";
 
-// Parmetros paa a consulta
+// Parâmetros para a consulta
 $params = [];
 $types = '';
 
@@ -52,9 +51,9 @@ if (!empty($medicamento_filtro)) {
     $types .= 's';
 }
 
-if (!empty($venda_id_filtro)) {
+if (!empty($id_filtro)) {
     $sql .= " AND mg.id = ?";
-    $params[] = $venda_id_filtro;
+    $params[] = $id_filtro;
     $types .= 'i';
 }
 
@@ -76,9 +75,21 @@ if (!empty($disponibilidadeSelecionada)) {
     }
 }
 
+// Configurando a paginação
+$rows_per_page = isset($_GET['rows_per_page']) ? (int)$_GET['rows_per_page'] : 10; // Padrão de 10 resultados por página
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Página atual
+$offset = ($page - 1) * $rows_per_page; // Calcula o OFFSET
+
+// Adicionando o ORDER BY
 $sql .= " ORDER BY mg.tipo ASC";
 
-// git add .
+// Adicionando LIMIT e OFFSET à consulta (após ORDER BY)
+$sql .= " LIMIT ?, ?";
+$params[] = $offset;
+$params[] = $rows_per_page;
+$types .= 'ii'; // Bind para os parâmetros LIMIT e OFFSET
+
+// Preparando a consulta
 $stmt = mysqli_prepare($con, $sql);
 
 if (!$stmt) {
@@ -93,9 +104,19 @@ if (!empty($params)) {
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
+// Calcular o total de registros
+$total_sql = "SELECT COUNT(*) AS total FROM medicamentos_gerais mg LEFT JOIN medicamentos m ON mg.designacao = m.nome WHERE 1=1";
+$total_result = mysqli_query($con, $total_sql);
+$total_row = mysqli_fetch_assoc($total_result);
+$total_records = $total_row['total'];
+$total_pages = ceil($total_records / $rows_per_page); // Total de páginas necessárias
 
+// Fechando a conexão
 $stmt->close();
 ?>
+
+
+
 
 
 <!DOCTYPE html>
@@ -149,6 +170,41 @@ $stmt->close();
         .btn-pesquisa:hover {
             background-color: #002244;
         }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+            padding-bottom: 40px;
+        }
+
+        .pagination a {
+            padding: 8px 16px;
+            margin: 0 5px;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #003366;
+            border: 1px solid #f4f4ff;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        .pagination a:hover {
+            background-color: #002244;
+            color: white;
+        }
+
+        .pagination .disabled {
+            color: #ccc;
+            cursor: not-allowed;
+            border: 1px solid #ccc;
+        }
+
+        .pagination span {
+            font-size: 14px;
+            margin: 0 10px;
+            color: #555;
+        }
+
     </style>
 </head>
 <body>
@@ -162,8 +218,8 @@ $stmt->close();
             <li><a href="Index.php">Inicio</a></li>
             <li><a href="#" onclick="toggleCategories();">Categorias</a></li>
             <li><a href="Historico.php">Historico</a></li>
+            <li><a href="geral.php">Lista Geral</a></li>
             <li><a href="about.php">Sobre nos</a></li>
-            <li><a href="contact.php">Contacto</a></li>
         </ul>
     </nav>
     <div class="icons">
@@ -217,12 +273,22 @@ $stmt->close();
 <h1>Medicamentos Gerais</h1>
 <b><b>
 <form action="geral.php" method="GET" class="form-pesquisa">
+    <select name="rows_per_page" id="rows_per_page" class="input-pesquisa" style="width: 70px;">
+        <option value="10" <?php echo isset($_GET['rows_per_page']) && $_GET['rows_per_page'] == 10 ? 'selected' : ''; ?>>10</option>
+        <option value="20" <?php echo isset($_GET['rows_per_page']) && $_GET['rows_per_page'] == 20 ? 'selected' : ''; ?>>20</option>
+        <option value="50" <?php echo isset($_GET['rows_per_page']) && $_GET['rows_per_page'] == 50 ? 'selected' : ''; ?>>50</option>
+        <option value="100" <?php echo isset($_GET['rows_per_page']) && $_GET['rows_per_page'] == 100 ? 'selected' : ''; ?>>100</option>
+        <option value="150" <?php echo isset($_GET['rows_per_page']) && $_GET['rows_per_page'] == 150 ? 'selected' : ''; ?>>150</option>
+    </select>
+
+
+
     <!-- Filtros de pesquisa -->
     <label class="label-name">Designação:</label>
     <input type="text" name="medicamento" value="<?php echo isset($_GET['medicamento']) ? $_GET['medicamento'] : ''; ?>" class="input-pesquisa">
 
     <label class="label-name">Rubrica:</label>
-    <input type="text" name="venda_id" value="<?php echo isset($_GET['venda_id']) ? $_GET['venda_id'] : ''; ?>" class="input-pesquisa">
+    <input type="text" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>" placeholder="ID" style="width: 60px;" class="input-pesquisa">
 
     <select name="tipo" id="tipo" class="input-pesquisa">
         <option value="">Selecione um tipo</option>
@@ -272,12 +338,13 @@ $stmt->close();
 <table>
     <thead>
         <tr>
+            <th>Rubrica</th>
             <th>Tipo</th>
             <th>Designação</th>
             <th>Forma</th>
             <th>Dose</th>
             <th>Instrução</th>
-            <th>Disponibilidade</th>
+            <th>Estado</th>
             <th></th>
         </tr>
     </thead>
@@ -286,6 +353,7 @@ $stmt->close();
     <?php if (mysqli_num_rows($result) > 0): ?>
     <?php while ($row = mysqli_fetch_assoc($result)): ?>
         <tr>
+            <td><?php echo $row['Rubrica'].'P'; ?></td>
             <td><?php echo $row['tipo']; ?></td>
             <td><?php echo $row['designacao']; ?></td>
             <td><?php echo $row['forma']; ?></td>
@@ -308,6 +376,29 @@ $stmt->close();
 <?php endif; ?>
     </tbody>
 </table>
+
+<div class="pagination">
+    <?php if ($page > 1): ?>
+        <a href="?page=1&rows_per_page=<?php echo $rows_per_page; ?>">Primeira</a>
+        <a href="?page=<?php echo $page - 1; ?>&rows_per_page=<?php echo $rows_per_page; ?>">Anterior</a>
+    <?php else: ?>
+        <span class="disabled">Primeira</span>
+        <span class="disabled">Anterior</span>
+    <?php endif; ?>
+
+    Página <?php echo $page; ?> de <?php echo $total_pages; ?>
+
+    <?php if ($page < $total_pages): ?>
+        <a href="?page=<?php echo $page + 1; ?>&rows_per_page=<?php echo $rows_per_page; ?>">Próxima</a>
+        <a href="?page=<?php echo $total_pages; ?>&rows_per_page=<?php echo $rows_per_page; ?>">Última</a>
+    <?php else: ?>
+        <span class="disabled">Próxima</span>
+        <span class="disabled">Última</span>
+    <?php endif; ?>
+</div>
+
+
+
 </body>
 
 <footer>
