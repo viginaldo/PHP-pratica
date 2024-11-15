@@ -69,9 +69,9 @@ $sql .= " GROUP BY mg.id";
 // Se o filtro de disponibilidade for definido, aplicamos a condição no HAVING
 if (!empty($disponibilidadeSelecionada)) {
     if ($disponibilidadeSelecionada == 'Disponível') {
-        $sql .= " HAVING SUM(m.quant) > 0"; 
+        $sql .= " HAVING SUM(m.quant) > 1"; 
     } elseif ($disponibilidadeSelecionada == 'Indisponível') {
-        $sql .= " HAVING SUM(m.quant) = 0";
+        $sql .= " HAVING SUM(m.quant) < 1";
     }
 }
 
@@ -81,7 +81,7 @@ $page = isset($_GET['page']) ? (int)$_GET['page'] : 1; // Página atual
 $offset = ($page - 1) * $rows_per_page; // Calcula o OFFSET
 
 // Adicionando o ORDER BY
-$sql .= " ORDER BY mg.tipo ASC";
+$sql .= " ORDER BY mg.id ASC";
 
 // Adicionando LIMIT e OFFSET à consulta (após ORDER BY)
 $sql .= " LIMIT ?, ?";
@@ -252,7 +252,6 @@ $total_stmt->close();
             margin: 0 10px;
             color: #555;
         }
-
     </style>
 </head>
 <body>
@@ -266,8 +265,8 @@ $total_stmt->close();
             <li><a href="Index.php">Inicio</a></li>
             <li><a href="#" onclick="toggleCategories();">Categorias</a></li>
             <li><a href="Historico.php">Historico</a></li>
-            <li><a href="geral.php">Lista Geral</a></li>
-            <li><a href="about.php">Sobre nos</a></li>
+            <li><a href="geral.php">Lista</a></li>
+            <li><a href="about.php">Sobre</a></li>
         </ul>
     </nav>
     <div class="icons">
@@ -400,8 +399,7 @@ $total_stmt->close();
     <button type="submit" class="btn-pesquisa">Pesquisar</button>
 </form>
 
-
-<table>
+<table class="table-container">
     <thead>
         <tr>
             <th>Rubrica</th>
@@ -437,7 +435,7 @@ $total_stmt->close();
     <?php endwhile; ?>
 <?php else: ?>
     <tr>
-        <td colspan="6">Nenhum medicamento encontrado.</td>
+        <td colspan="8">Nenhum medicamento encontrado.</td>
     </tr>
 <?php endif; ?>
     </tbody>

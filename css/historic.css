@@ -166,6 +166,15 @@ table thead {
     color: #fff; /* Cor do texto no cabeçalho */
 }
 
+
+thead th {
+    position: sticky;
+    top: 80px;
+    background-color: #003366;
+    z-index: 10;
+    padding: 10px;
+}
+
 table th,
 table td {
     padding: 12px 15px;
@@ -256,10 +265,15 @@ footer {
     align-items: center;
     text-align: center;
     justify-content: space-between;
-    padding-left: 380px;
     background-color: #003366;
     color: white;
     position: relative;
+}
+
+footer p{
+    margin: 0;
+    text-align: center;
+    padding-left: 40%;  
 }
 
 footer img {
