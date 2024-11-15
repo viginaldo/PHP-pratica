@@ -204,7 +204,7 @@ if (!$result) {
         <script src="js/script.js"></script>
     </header>
 
-    <h1>Entregas Pendentes</h1>
+    <h1 style="text-align: left; font-size: 17px; padding-left:30px;padding-top: 20px; padding-bottom: 20px; color:#003366; text-decoration: underline">ENTREGAS PENDENTES > > ></h1>
     <b><b>
     <form action="entrega.php" method="GET" class="form-pesquisa">
         <label class="label-name">Data da Compra:</label>

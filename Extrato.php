@@ -13,6 +13,7 @@ $user_id = $_SESSION['id'];
 // Consulta para obter todas as compras do usuário
 $sql = "
     SELECT 
+        v.id AS venda_id,
         v.data_venda AS data,
         f.nome AS farmacia,
         m.nome AS produto,
@@ -72,11 +73,12 @@ if (mysqli_num_rows($result) > 0) {
     $pdf->SetFillColor(14, 45, 82);
     $pdf->SetTextColor(255, 255, 255);
     $pdf->SetFont('Helvetica', 'B', 10);
-    $pdf->Cell(40, 10, 'DATA', 1, 0, 'C', true);
-    $pdf->Cell(40, 10, 'FARMÁCIA', 1, 0, 'C', true);
-    $pdf->Cell(40, 10, 'PRODUTO', 1, 0, 'C', true);
+    $pdf->Cell(23, 10, 'CODIGO', 1, 0, 'C', true);
+    $pdf->Cell(37, 10, 'DATA', 1, 0, 'C', true);
+    $pdf->Cell(37, 10, 'FARMÁCIA', 1, 0, 'C', true);
+    $pdf->Cell(37, 10, 'PRODUTO', 1, 0, 'C', true);
     $pdf->Cell(15, 10, 'QNT', 1, 0, 'C', true);
-    $pdf->Cell(30, 10, 'PREÇO', 1, 0, 'C', true);
+    $pdf->Cell(25, 10, 'PREÇO', 1, 0, 'C', true);
     $pdf->Cell(20, 10, 'ENTREGA', 1, 1, 'C', true);
 
     // Cor do texto da tabela de extrato
@@ -85,12 +87,25 @@ if (mysqli_num_rows($result) > 0) {
 
     // Lista de medicamentos comprados
     do {
-        $pdf->Cell(40, 10, $row['data'], 1, 0, 'C');
-        $pdf->Cell(40, 10, $row['farmacia'], 1, 0, 'C');
-        $pdf->Cell(40, 10, $row['produto'], 1, 0, 'C');
-        $pdf->Cell(15, 10, $row['quantidade'], 1, 0, 'C');
-        $pdf->Cell(30, 10, number_format($row['preco'], 2, ',', '.'), 1, 0, 'C');
-        $pdf->Cell(20, 10, ($row['entrega'] == 1 ? 'Sim' : 'Nao'), 1, 1, 'C');
+        $altura = 10; // Altura da linha
+        $largura_padrao = 37; // Largura padrão de células largas
+    
+        $pdf->Cell(23, $altura, substr($row['produto'], 0, 1) . str_pad($row['venda_id'], 6, '0', STR_PAD_LEFT) . 'P', 1, 0, 'C');
+        $pdf->Cell(37, $altura, $row['data'], 1, 0, 'C');
+        $x_pos = $pdf->GetX(); // Captura a posição X atual
+        $y_pos = $pdf->GetY(); // Captura a posição Y atual
+    
+        // Usar MultiCell para farmácia
+        $pdf->MultiCell($largura_padrao, $altura, $row['farmacia'], 1, 'C');
+        $pdf->SetXY($x_pos + $largura_padrao, $y_pos); // Ajusta a posição para a próxima célula
+    
+        // Usar MultiCell para produto
+        $pdf->MultiCell($largura_padrao, $altura, $row['produto'], 1, 'C');
+        $pdf->SetXY($x_pos + (2 * $largura_padrao), $y_pos); // Ajusta a posição para as próximas células
+    
+        $pdf->Cell(15, $altura, $row['quantidade'], 1, 0, 'C');
+        $pdf->Cell(25, $altura, number_format($row['preco'], 2, ',', '.'), 1, 0, 'C');
+        $pdf->Cell(20, $altura, ($row['entrega'] == 1 ? 'Sim' : 'Nao'), 1, 1, 'C');
         
         // Atualizar totais para cálculo
         $total += $row['total'];

@@ -75,7 +75,7 @@ if (isset($_GET['venda_id'])) {
 
         // Cabeçalho da tabela
         $pdf->Cell(35, 10, 'DATA', 1, 0, 'C', true);
-        $pdf->Cell(45, 10, 'PRODUTO', 1, 0, 'C', true); 
+        $pdf->Cell(40, 10, 'PRODUTO', 1, 0, 'C', true); 
         $pdf->Cell(15, 10, 'QNT', 1, 0, 'C', true);
         $pdf->Cell(30, 10, 'PRECO', 1, 0, 'C', true);
         $pdf->Cell(40, 10, 'MET. PAGAMENTO', 1, 0, 'C', true);
@@ -85,9 +85,17 @@ if (isset($_GET['venda_id'])) {
         $pdf->SetTextColor(0, 0, 0);
         $pdf->SetFont('Helvetica', '', 10);
 
-        // Preenchendo as células com os dados
+        $altura = 10;
+        $largura_padrao = 40;
+        
         $pdf->Cell(35, 10, $row['data'], 1, 0, 'C');
-        $pdf->Cell(45, 10, $row['produto'], 1, 0, 'C'); 
+        $x_pos = $pdf->GetX(); 
+        $y_pos = $pdf->GetY();
+
+        $pdf->MultiCell($largura_padrao, $altura, $row['produto'], 1, 'C');
+        $pdf->SetXY($x_pos + (2 * $largura_padrao), $y_pos);
+        $pdf->SetXY($x_pos + $largura_padrao, $y_pos);
+
         $pdf->Cell(15, 10, $row['quantidade'], 1, 0, 'C');
         $pdf->Cell(30, 10, number_format($row['preco'], 2, ',', '.'), 1, 0, 'C');
         $pdf->Cell(40, 10, $row['m_pagamento'], 1, 0, 'C');

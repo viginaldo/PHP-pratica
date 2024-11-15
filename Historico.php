@@ -295,7 +295,7 @@ if (!$result) {
         <script src="js/script.js"></script>
     </header>
 
-    <h1>Histórico de Compras</h1>
+    <h1 style="text-align: left; font-size: 17px; padding-left:30px;padding-top: 20px; padding-bottom: 20px; color:#003366; text-decoration: underline;">HISTÓRICO DE COMPRA > > ></h1>
     <b><b>
     <form action="Historico.php" method="GET" class="form-pesquisa">
 

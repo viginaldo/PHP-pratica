@@ -317,7 +317,7 @@ $total_stmt->close();
 </header>
 
 
-<h1>Medicamentos Gerais</h1>
+<h1 style="text-align: left; font-size: 17px; padding-left:30px;padding-top: 20px; padding-bottom: 20px; color:#003366; text-decoration: underline">MEDICAMENTOS GERAIS > > ></h1>
 <b><b>
 <form action="geral.php" method="GET" class="form-pesquisa">
     <select name="rows_per_page" id="rows_per_page" class="input-pesquisa" style="width: 70px;">
