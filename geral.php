@@ -104,18 +104,66 @@ if (!empty($params)) {
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
-// Calcular o total de registros
-$total_sql = "SELECT COUNT(*) AS total FROM medicamentos_gerais mg LEFT JOIN medicamentos m ON mg.designacao = m.nome WHERE 1=1";
-$total_result = mysqli_query($con, $total_sql);
+// Calcular o total de registros (incluindo filtros)
+$total_sql = "
+    SELECT COUNT(DISTINCT mg.id) AS total
+    FROM medicamentos_gerais mg
+    LEFT JOIN medicamentos m ON mg.designacao = m.nome
+    WHERE 1=1
+";
+$total_params = [];
+$total_types = '';
+
+// Reaplicando os filtros na consulta de contagem
+if (!empty($tipoSelecionado)) {
+    $total_sql .= " AND mg.tipo = ?";
+    $total_params[] = $tipoSelecionado;
+    $total_types .= 's';
+}
+
+if (!empty($medicamento_filtro)) {
+    $total_sql .= " AND mg.designacao LIKE ?";
+    $total_params[] = $medicamento_filtro;
+    $total_types .= 's';
+}
+
+if (!empty($id_filtro)) {
+    $total_sql .= " AND mg.id = ?";
+    $total_params[] = $id_filtro;
+    $total_types .= 'i';
+}
+
+if (!empty($formaSelecionada)) {
+    $total_sql .= " AND mg.forma = ?";
+    $total_params[] = $formaSelecionada;
+    $total_types .= 's';
+}
+
+// Filtro de disponibilidade na contagem (usando HAVING)
+if (!empty($disponibilidadeSelecionada)) {
+    $total_sql .= " GROUP BY mg.id HAVING ";
+    if ($disponibilidadeSelecionada == 'Disponível') {
+        $total_sql .= "SUM(m.quant) > 0";
+    } elseif ($disponibilidadeSelecionada == 'Indisponível') {
+        $total_sql .= "SUM(m.quant) = 0";
+    }
+}
+
+// Executando a consulta de contagem
+$total_stmt = mysqli_prepare($con, $total_sql);
+if ($total_types) {
+    mysqli_stmt_bind_param($total_stmt, $total_types, ...$total_params);
+}
+mysqli_stmt_execute($total_stmt);
+$total_result = mysqli_stmt_get_result($total_stmt);
 $total_row = mysqli_fetch_assoc($total_result);
-$total_records = $total_row['total'];
-$total_pages = ceil($total_records / $rows_per_page); // Total de páginas necessárias
+$total_records = $total_row ? $total_row['total'] : 0;
+$total_pages = ceil($total_records / $rows_per_page);
 
 // Fechando a conexão
 $stmt->close();
+$total_stmt->close();
 ?>
-
-
 
 
 
@@ -285,7 +333,7 @@ $stmt->close();
 
     <!-- Filtros de pesquisa -->
     <label class="label-name">Designação:</label>
-    <input type="text" name="medicamento" value="<?php echo isset($_GET['medicamento']) ? $_GET['medicamento'] : ''; ?>" class="input-pesquisa">
+    <input type="text" name="medicamento" value="<?php echo isset($_GET['medicamento']) ? $_GET['medicamento'] : ''; ?>" placeholder="Designação" class="input-pesquisa">
 
     <label class="label-name">Rubrica:</label>
     <input type="text" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>" placeholder="ID" style="width: 90px;" class="input-pesquisa">
@@ -307,6 +355,8 @@ $stmt->close();
         <option value="HIGIENE PESSOAL" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'HIGIENE PESSOAL' ? 'selected' : ''; ?>>Higiene Pessoal</option>
         <option value="INFANTIL" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'INFANTIL' ? 'selected' : ''; ?>>Infantil</option>
         <option value="NUTRIÇÃO, SAIS MINERAIS E VITAMINAS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'NUTRIÇÃO, SAIS MINERAIS E VITAMINAS' ? 'selected' : ''; ?>>Nutrição, Sais Minerais e Vitaminas</option>
+        <option value="Outros" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'outros' ? 'selected' : ''; ?>>outros</option>
+
         <option value="OTORRINOLARINGOLOGIA" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'OTORRINOLARINGOLOGIA' ? 'selected' : ''; ?>>Otorrinolaringologia</option>
         <option value="OFTALMOLOGIA" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'OFTALMOLOGIA' ? 'selected' : ''; ?>>Oftalmologia</option>
         <option value="PRODUTOS ÍNTIMOS" <?php echo isset($_GET['tipo']) && $_GET['tipo'] == 'PRODUTOS ÍNTIMOS' ? 'selected' : ''; ?>>Produtos Íntimos</option>
@@ -338,9 +388,13 @@ $stmt->close();
 
 
     <select name="disponibilidade" class="input-pesquisa">
+
         <option value="">Selecione a disponibilidade</option>
+        
         <option value="Disponível" <?php echo isset($_GET['disponibilidade']) && $_GET['disponibilidade'] == 'Disponível' ? 'selected' : ''; ?>>Disponível</option>
+
         <option value="Indisponível" <?php echo isset($_GET['disponibilidade']) && $_GET['disponibilidade'] == 'Indisponível' ? 'selected' : ''; ?>>Indisponível</option>
+
     </select>
 
     <button type="submit" class="btn-pesquisa">Pesquisar</button>
@@ -389,25 +443,49 @@ $stmt->close();
     </tbody>
 </table>
 
+<!-- Código HTML para paginação com filtros na URL -->
 <div class="pagination">
-    <?php if ($page > 1): ?>
-        <a href="?page=1&rows_per_page=<?php echo $rows_per_page; ?>">Primeira</a>
-        <a href="?page=<?php echo $page - 1; ?>&rows_per_page=<?php echo $rows_per_page; ?>">Anterior</a>
-    <?php else: ?>
-        <span class="disabled">Primeira</span>
-        <span class="disabled">Anterior</span>
-    <?php endif; ?>
+    <?php
+    // Definindo quantas páginas ao redor da página atual queremos exibir
+    $pages_to_show = 5;
+    $start_page = max(1, $page - 2); // Página inicial a exibir
+    $end_page = min($total_pages, $page + 2); // Página final a exibir
 
-    Página <?php echo $page; ?> de <?php echo $total_pages; ?>
+    // Ajustando as páginas exibidas quando a página atual está perto do início ou do fim
+    if ($page <= 3) {
+        $start_page = 1;
+        $end_page = min($total_pages, $pages_to_show);
+    } elseif ($page >= $total_pages - 2) {
+        $start_page = max(1, $total_pages - $pages_to_show + 1);
+        $end_page = $total_pages;
+    }
 
-    <?php if ($page < $total_pages): ?>
-        <a href="?page=<?php echo $page + 1; ?>&rows_per_page=<?php echo $rows_per_page; ?>">Próxima</a>
-        <a href="?page=<?php echo $total_pages; ?>&rows_per_page=<?php echo $rows_per_page; ?>">Última</a>
-    <?php else: ?>
-        <span class="disabled">Próxima</span>
-        <span class="disabled">Última</span>
-    <?php endif; ?>
+    // Link para a página anterior
+    if ($page > 1) {
+        echo '<a href="?page=' . ($page - 1) .'&rows_per_page=' . urlencode($rows_per_page). '&medicamento=' . urlencode($medicamento_filtro) . '&tipo=' . urlencode($tipoSelecionado) . '&forma=' . urlencode($formaSelecionada) . '&disponibilidade=' . urlencode($disponibilidadeSelecionada) . '">Anterior</a> ';
+    }
+
+    // Exibindo as páginas no intervalo definido
+    for ($i = $start_page; $i <= $end_page; $i++) {
+        if ($i == $page) {
+            echo '<span class="active">' . $i . '</span> ';
+        } else {
+            echo '<a href="?page=' . $i .'&rows_per_page=' . urlencode($rows_per_page). '&medicamento=' . urlencode($medicamento_filtro) . '&tipo=' . urlencode($tipoSelecionado) . '&forma=' . urlencode($formaSelecionada) . '&disponibilidade=' . urlencode($disponibilidadeSelecionada) . '">' . $i . '</a> ';
+        }
+    }
+
+    // Exibir reticências "..." se houver mais páginas após as exibidas
+    if ($end_page < $total_pages) {
+        echo '... ';
+    }
+
+    // Link para a próxima página
+    if ($page < $total_pages) {
+        echo '<a href="?page=' . ($page + 1) .'&rows_per_page=' . urlencode($rows_per_page). '&medicamento=' . urlencode($medicamento_filtro) . '&tipo=' . urlencode($tipoSelecionado) . '&forma=' . urlencode($formaSelecionada) . '&disponibilidade=' . urlencode($disponibilidadeSelecionada) . '">Próxima</a>';
+    }
+    ?>
 </div>
+
 
 
 

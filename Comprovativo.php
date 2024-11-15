@@ -60,7 +60,7 @@ if (isset($_GET['venda_id'])) {
         $pdf->SetFont('Helvetica', 'B', 14);
         $pdf->Cell(0, 10, 'RECIBO DE COMPRA', 0, 1, 'C');
         $pdf->SetFont('Helvetica', '', 12);
-        $pdf->Cell(0, 10, 'Compra Nº p' . str_pad($venda_id, 6, '0', STR_PAD_LEFT).'F', 0, 1, 'C');
+        $pdf->Cell(0, 10, 'Compra Nº ' .substr($row['produto'],0,1) . str_pad($venda_id, 6, '0', STR_PAD_LEFT).'P', 0, 1, 'C');
         
         // Informações do Cliente e Farmácia
         $pdf->Ln(10);

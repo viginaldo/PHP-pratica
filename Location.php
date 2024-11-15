@@ -217,25 +217,25 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['medicamento'])) {
             text-align: center;
         }
         /* Estilo para o botão */
-.back-button {
-    position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        .back-button {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-60%, -50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #003366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
-/* Estilo para quando o botão é pressionado */
-.back-button:active {
-    background-color: #45a049;
-}
+        /* Estilo para quando o botão é pressionado */
+        .back-button:hover {
+            background-color: #09233e;
+        }
 
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places"></script>

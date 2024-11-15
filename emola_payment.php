@@ -49,15 +49,17 @@ if (isset($_GET['confirmado']) && $_GET['confirmado'] === 'true' && isset($_GET[
         // Realiza o pagamento
         $total = $preco * $quantidadeComprada;
         $pagamento = "E-mola";
+        $estado = 1;
         if ($entrega == 1) {
             $total += 100; // Taxa de entrega
+            $estado=0;
         }
 
         if ($updateStmt->execute()) {
             // Registra a venda
-            $insertVendaSql = "INSERT INTO vendas (us_id, farmacia_id, medicamento_id, quantidade, preco, m_pagamento, total, entrega, contacto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $insertVendaSql = "INSERT INTO vendas (us_id, farmacia_id, medicamento_id, quantidade, preco, m_pagamento, total, entrega, contacto, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $insertVendaStmt = $con->prepare($insertVendaSql);
-            $insertVendaStmt->bind_param("iiiidsdis", $user_id, $farmacia_id, $medicamentoId, $quantidadeComprada, $preco, $pagamento, $total, $entrega, $contacto);
+            $insertVendaStmt->bind_param("iiiidsdisi", $user_id, $farmacia_id, $medicamentoId, $quantidadeComprada, $preco, $pagamento, $total, $entrega, $contacto, $estado);
 
             if ($insertVendaStmt->execute()) {
                 $pagamentoFeito = true;
