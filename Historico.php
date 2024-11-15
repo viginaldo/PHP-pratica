@@ -208,6 +208,15 @@ if (!$result) {
             margin: 0 10px;
             color: #555;
         }
+      /*  #google_translate_element select {
+            background-color: #003366;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        */
 
     </style>
 </head>
@@ -230,6 +239,18 @@ if (!$result) {
         <div class="icons">
             <a href="#"><img src="img/user.png" height="50px" alt="User Icon"></a>
             <a href="Login.php"><img src="img/logout.png" height="50px" alt="Cart Icon"></a>
+           <!-- <div  id="google_translate_element"></div>
+            <script type="text/javascript">
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({
+                        pageLanguage: 'pt', // Idioma padrão (português)
+                        includedLanguages: 'en,pt', // Idiomas disponíveis para tradução
+                        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+                    }, 'google_translate_element');
+                }
+            </script>
+            <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>-->
+
         </div>
         
         <!-- Menu de categorias-->
